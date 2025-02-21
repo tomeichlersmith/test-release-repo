@@ -1,1 +1,3 @@
 # release testing
+foo
+bar
