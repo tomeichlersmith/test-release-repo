@@ -1,3 +1,1 @@
 # release testing
-foo
-bar
