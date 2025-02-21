@@ -8,12 +8,17 @@ on:
 jobs:
   update-version-file:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Update File
         run: |
-          the_tag=$(git describe --tags)
+          git config --global user.name version-file-bot
+          git config --global user.email version-file-bot@users.noreply.github.com
+          the_tag=$(set -o errexit; git describe --tags)
           echo "${the_tag}" >> version
           git add version
           git commit -m "update version file to ${the_tag}" || exit 0
