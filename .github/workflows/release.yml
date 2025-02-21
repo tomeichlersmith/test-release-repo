@@ -24,6 +24,6 @@ jobs:
           echo "${the_tag}" >> version
           git add version
           git commit -m "update version file to ${the_tag}" || exit 0
-          git push
+          git push origin main
           git tag --force "${the_tag}"
           git push --tags --force
