@@ -21,9 +21,9 @@ jobs:
           git config --global user.name version-file-bot
           git config --global user.email version-file-bot@users.noreply.github.com
           the_tag=$(set -o errexit; git describe --tags)
-          echo "${the_tag}" >> version
+          echo "${the_tag}" | tee version
           git add version
           git commit -m "update version file to ${the_tag}" || exit 0
-          git push origin main
+          git push origin HEAD:main
           git tag --force "${the_tag}"
           git push --tags --force
