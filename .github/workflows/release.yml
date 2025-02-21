@@ -1,0 +1,22 @@
+
+name: Release
+
+on: 
+  release: 
+    types: [released]
+
+jobs:
+  update-version-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Update File
+        run: |
+          the_tag=$(git describe --tags)
+          echo "${the_tag}" >> version
+          git add version
+          git commit -m "update version file to ${the_tag}" || exit 0
+          git push
+          git tag --force "${the_tag}"
+          git push --tags --force
